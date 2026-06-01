@@ -84,6 +84,7 @@
     transition: background 0.2s, transform 0.2s !important;
   }
   .nav-cta:hover { background: var(--pink-deep) !important; transform: translateY(-1px); }
+  .mobile-menu-btn { display: none; }
 
   /* ---- PAGES ---- */
   .page { display: none; min-height: 100vh; }
@@ -974,6 +975,123 @@
 
   .footer-links li a:hover { color: var(--pink); }
 
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    nav {
+      padding: 16px 20px;
+    }
+    .nav-links {
+      display: none;
+    }
+    .mobile-menu-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--pink);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: rgba(253,246,240,0.98);
+      backdrop-filter: blur(12px);
+      padding: 20px;
+      z-index: 99;
+      border-bottom: 1px solid rgba(232,51,106,0.12);
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      display: block;
+      padding: 14px 16px;
+      color: var(--mid);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      border-radius: 12px;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+    .mobile-nav a:hover { background: var(--pink-pale); color: var(--pink); }
+    .mobile-nav a.cta {
+      background: var(--pink);
+      color: var(--white);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Hero */
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 100px 24px 60px;
+      gap: 40px;
+    }
+    .hero-blob { width: 280px; height: 320px; }
+    .hero-tagline { font-size: 1.5rem; padding: 28px; }
+    .badge-1 { top: 10px; left: 10px; font-size: 0.78rem; padding: 10px 14px; }
+    .badge-2 { bottom: 30px; right: 10px; font-size: 0.78rem; padding: 10px 14px; }
+    .badge-num { font-size: 1.1rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero p { font-size: 1rem; }
+    .btn-secondary { margin-left: 0; margin-top: 12px; display: inline-block; }
+
+    /* Sections */
+    .section { padding: 60px 24px; }
+    .section-title { font-size: 1.8rem; }
+
+    /* Grids */
+    .valores-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+    .team-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .team-section { padding: 60px 24px; }
+
+    /* Servicios */
+    .servicios-hero { padding: 120px 24px 60px; }
+    .servicios-grid { grid-template-columns: 1fr; padding: 40px 24px; gap: 20px; }
+    .servicio-card { padding: 32px 24px; }
+    .servicios-grid .servicio-card:last-child { grid-column: auto; max-width: 100%; margin: 0; }
+
+    /* Pricing */
+    .pricing-section { padding: 60px 24px; }
+    .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
+    .pricing-card.featured { transform: scale(1); }
+
+    /* Caso */
+    .caso-hero { padding: 120px 24px 60px; }
+    .caso-main { grid-template-columns: 1fr; padding: 40px 24px; gap: 40px; }
+    .caso-logo-area { position: static; }
+    .flores-card { padding: 40px 24px; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .testimonio-section { padding: 60px 24px; }
+    .quote-mark { font-size: 5rem; }
+    .testimonio-text { font-size: 1.2rem; }
+
+    /* Contacto */
+    .contacto-layout { grid-template-columns: 1fr; }
+    .contacto-left { padding: 120px 24px 60px; }
+    .contacto-right { padding: 40px 24px 60px; }
+    .form-row { grid-template-columns: 1fr; }
+
+    /* Footer */
+    footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .footer-links { flex-wrap: wrap; gap: 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .team-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 1.9rem; }
+  }
+
   /* Animations */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
@@ -1002,7 +1120,17 @@
     <li><a href="#" onclick="showPage('caso')" id="nav-caso">Caso de Éxito</a></li>
     <li><a href="#" onclick="showPage('contacto')" id="nav-contacto" class="nav-cta">Contacto</a></li>
   </ul>
+  <div class="mobile-menu-btn" onclick="toggleMenu()" id="menuBtn">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a onclick="showPage('nosotros');toggleMenu()">Nosotros</a>
+  <a onclick="showPage('servicios');toggleMenu()">Servicios</a>
+  <a onclick="showPage('caso');toggleMenu()">Caso de Éxito</a>
+  <a class="cta" onclick="showPage('contacto');toggleMenu()">Contacto</a>
+</div>
 
 <!-- ================= NOSOTROS ================= -->
 <div id="page-nosotros" class="page active">
@@ -1466,6 +1594,11 @@
     }
     document.getElementById('form-container').style.display = 'none';
     document.getElementById('success-msg').style.display = 'block';
+  }
+
+  function toggleMenu() {
+    const menu = document.getElementById("mobileNav");
+    menu.classList.toggle("open");
   }
 </script>
 </body>
